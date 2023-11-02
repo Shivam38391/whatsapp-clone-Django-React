@@ -51,6 +51,8 @@ class JWTAuthentication(BaseAuthentication):
     def generate_token(payload):
         expiration = datetime.utcnow() + timedelta(hours=24) # we are adding 24 hours
         payload['exp'] = expiration #creating one mre key in pyload because payload is a dictionary
+        
+        print(payload)
         token = jwt.encode(payload=payload, key= settings.SECRET_KEY , algorithm="HS256")
         return token
     

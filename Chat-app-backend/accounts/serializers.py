@@ -50,7 +50,8 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("User is not active")
         
         
-        return { "email": user.email, "id": user.id }
+        return {
+                "email": user.email, "id": user.id
+            }
             
-        
-        return super().validate(data)
+    
