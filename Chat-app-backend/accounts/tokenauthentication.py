@@ -20,7 +20,6 @@ class JWTAuthentication(BaseAuthentication):
             self.verify_token(payload=payload)
             user_id = payload['id']
             user = User.objects.get(user_id=user_id)
-            
             return user
         
         except (InvalidTokenError, ExpiredSignatureError , User.DoesNotExist):
@@ -34,6 +33,10 @@ class JWTAuthentication(BaseAuthentication):
         
         exp_timestamp = payload['exp']
         current_timestamp = datetime.utcnow().timestamp()
+    
+        print("exp:" , exp_timestamp)
+        print("current_timestamp:" , current_timestamp)
+        
         
         if current_timestamp > exp_timestamp:
             raise ExpiredSignatureError("Token expired")
@@ -43,6 +46,7 @@ class JWTAuthentication(BaseAuthentication):
     def extract_token(self,request):
         auth_header = request.headers.get('Authorization')
         if auth_header and auth_header.startswith('Bearer '):
+            print("Token is ....",auth_header.split(' ')[1])
             return auth_header.split(" ")[1]
         return None
     
@@ -51,8 +55,7 @@ class JWTAuthentication(BaseAuthentication):
     def generate_token(payload):
         expiration = datetime.utcnow() + timedelta(hours=24) # we are adding 24 hours
         payload['exp'] = expiration #creating one mre key in pyload because payload is a dictionary
-        
-        print(payload)
+        print("PALoad is ..............", payload)
         token = jwt.encode(payload=payload, key= settings.SECRET_KEY , algorithm="HS256")
         return token
     
