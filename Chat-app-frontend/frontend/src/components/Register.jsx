@@ -7,6 +7,7 @@ import { useState } from "react";
 
 function Register() {
 
+  const [message, setmessage] = useState("")
 
   const [formData, setformData] = useState({
                                         "email": "",
@@ -38,6 +39,10 @@ function Register() {
         const result = await response.json();
 
         console.log("Success:", result);
+        console.log(result["email"][0]);
+
+        setmessage(result["email"][0])
+
       } catch (error) {
         console.error("Error:", error);
       }
@@ -55,7 +60,12 @@ function Register() {
 
   return (
     <>
-      <div className=" container text-center">
+      <div  className=" container text-center ">
+
+        <h2>Registration form</h2>
+
+        <h3 className="info" > {message} </h3>
+
         <TextField
           id="email"
           label="email"
@@ -84,7 +94,7 @@ function Register() {
           focused
           margin="normal"
 
-          onChange={ e => setformData( {...formData , last_name: e.target.value} ) }
+          onChange={ e => setformData( {...formData , last_name: e.target.value } ) }
 
         />
         <br />
@@ -99,7 +109,7 @@ function Register() {
         />
 
         <div className="d-flex justify-content-center">
-          <Button onClick={ handleFormSubmit }  margin="normal" variant="outlined">
+          <Button onClick={ handleFormSubmit }  margin="normal" variant="contained">
             Register
           </Button>
         </div>

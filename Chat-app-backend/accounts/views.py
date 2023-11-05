@@ -14,7 +14,7 @@ def register_user(request):
     
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data , status= 201)
+        return Response(serializer.data , status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors , status=400)
 
