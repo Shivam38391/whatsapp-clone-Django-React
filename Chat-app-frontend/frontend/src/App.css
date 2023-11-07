@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,59 @@
 
 .read-the-docs {
   color: #888;
+} */
+
+
+
+
+.chat-area {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.chat-header {
+  background-color: #3498db;
+  color: aliceblue;
+  padding: 15px;
+  text-align: center;
+}
+
+.messages {
+flex: 1;
+padding: 20px;
+overflow-y: auto;
+}
+
+.message {
+  margin-bottom: 15px;
+}
+
+.sent {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.recieved {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.sent .message-bubble{
+  background-color: #3498db;
+  color: aliceblue;
+  border-bottom-right-radius: 0;
+}
+
+.recieved .message-bubble{
+  background-color: #a9aaaa;
+  color: aliceblue;
+  border-bottom-left-radius: 0;
 }
