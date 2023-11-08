@@ -1,6 +1,7 @@
 import React from 'react'
 import Message from './Message'
 import MessageInput from './MessageInput'
+import withAuthentication from '../../utils/withAuthentication'
 
 function ChatArea() {
   return (
@@ -20,4 +21,4 @@ function ChatArea() {
   )
 }
 
-export default ChatArea
+export default withAuthentication(ChatArea)
