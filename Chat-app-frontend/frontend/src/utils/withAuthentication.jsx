@@ -15,6 +15,7 @@ const withAuthentication = (wrappedComponent) => {
   
 
             const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+            
             if (token){
                 setisAuthenticated(true)
             }else{
