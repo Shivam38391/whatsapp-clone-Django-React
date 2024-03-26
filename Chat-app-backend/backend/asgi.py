@@ -5,14 +5,12 @@ It exposes the ASGI callable as a module-level variable named ``application``.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
-
-
 """
 
 
 from channels.routing import ProtocolTypeRouter, URLRouter
 from accounts.route import websocket_urlpatterns
-
+from channels.auth import AuthMiddlewareStack
 
 import os
 
@@ -25,5 +23,5 @@ application = get_asgi_application()
 
 application = ProtocolTypeRouter({
     "http":application,
-    "websocket": URLRouter(websocket_urlpatterns),
+    "websocket": AuthMiddlewareStack( URLRouter(websocket_urlpatterns) ),
 })

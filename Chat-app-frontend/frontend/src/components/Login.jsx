@@ -23,12 +23,9 @@ function Login() {
 
       try {
         const response = await fetch(`${baseurl}login/`, options);
-
         const result = await response.json();
-
         console.log("Success:", result);
         console.log(result["email"][0]);
-
         setmessage(result["email"][0]);
       } catch (error) {
         console.error("Error:", error);
