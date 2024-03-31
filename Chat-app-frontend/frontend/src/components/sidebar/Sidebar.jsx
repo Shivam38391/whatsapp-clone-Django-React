@@ -1,4 +1,5 @@
 import React from 'react'
+import withAuthentication from '../../utils/withAuthentication'
 
 function Sidebar() {
   return (
@@ -189,4 +190,4 @@ function Sidebar() {
   )
 }
 
-export default Sidebar
+export default withAuthentication( Sidebar )

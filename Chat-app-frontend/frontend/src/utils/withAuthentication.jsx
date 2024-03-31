@@ -8,14 +8,8 @@ const withAuthentication = (wrappedComponent) => {
     return function AuthComponent(props){
         const [isAuthenticated, setisAuthenticated] = useState(false)
 
-
-
-
         useEffect(() => {
-  
-
             const token = document.cookie.split('; ').find(row => row.startsWith('token='));
-            
             if (token){
                 setisAuthenticated(true)
             }else{
@@ -23,7 +17,6 @@ const withAuthentication = (wrappedComponent) => {
             }
 
         }, []);
-
 
 
         if (isAuthenticated) {

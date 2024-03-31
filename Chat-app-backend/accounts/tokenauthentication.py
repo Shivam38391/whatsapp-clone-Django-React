@@ -6,6 +6,9 @@ from rest_framework.exceptions import AuthenticationFailed
 from django.conf import settings 
 from django.contrib.auth import get_user_model 
 from datetime import datetime , timedelta
+from channels.db import database_sync_to_async
+
+
 
 
 
@@ -21,7 +24,6 @@ class JWTAuthentication(BaseAuthentication):
             user_id = payload['id']
             user = User.objects.get(user_id=user_id)
             return user
-        
         except (InvalidTokenError, ExpiredSignatureError , User.DoesNotExist):
             raise AuthenticationFailed("Invalid token")
     
@@ -50,6 +52,19 @@ class JWTAuthentication(BaseAuthentication):
             return auth_header.split(" ")[1]
         return None
     
+    
+    @database_sync_to_async
+    def authenticate_websocket(self , scope , token):
+        try:
+            payload = jwt.decode(token , key= settings.SECRET_KEY, algorithms="HS256")
+            self.verify_token(payload=payload)
+            user_id = payload['id']
+            user = User.objects.get(user_id=user_id)
+            return user
+        except (InvalidTokenError, ExpiredSignatureError , User.DoesNotExist):
+            raise AuthenticationFailed("Invalid token")
+            
+               
     
     @staticmethod # this would be same for every object that we create 
     def generate_token(payload):
